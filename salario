@@ -1,0 +1,29 @@
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+app.post('/ordemCresc', (req, res) => {
+    const { preco } = req.body;
+    let rj = 0;
+
+    if (preco >= 1500 && preco < 1750) {
+        rj = preco * 15 / 100;
+    } else if (preco >= 1750 && preco < 2000) {
+        rj = preco * 12 / 100;
+    } else if (preco >= 2000 && preco < 3000) {
+        rj = preco * 9 / 100;
+    } else if (preco >= 3000) {
+        rj = preco * 6 / 100;
+    }
+
+    let total = preco + rj;
+
+    res.json({ total });
+});
+
+app.listen(4000, () => {
+    console.log('Servidor rodando em http://localhost:4000');
+});
