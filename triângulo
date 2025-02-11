@@ -1,0 +1,23 @@
+const express = require('express');
+const cors = require('cors');
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.post('/lado', (req, res) => {
+    const {lado1} = req.body;
+    const {lado2} = req.body;
+    const {lado3} = req.body;
+    let oq = "";
+    if (lado1 === lado2 && lado2 === lado3){
+     oq = "EQUILÁTERO"
+    } else if (lado1 !== lado2 && lado1 !== lado3 && lado2 !== lado3) {
+     oq = "ESCALENO"
+    } else {
+     oq = "ISÓSCELES"
+    }
+    res.json({ oq });
+});
+
+app.listen(4000, () => {
+    console.log('Servidor rodando em http://localhost:4000');
+});
